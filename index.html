@@ -647,15 +647,17 @@
           `;
 
 
-     } catch (error) {
+    } catch (error) {
+  alert(
+    "EMAILJS FEHLER\n\n" +
+    "Status: " + (error.status || "unbekannt") + "\n" +
+    "Text: " + (error.text || error.message || "unbekannt")
+  );
+
   console.error("EmailJS Fehler:", error);
 
   datePage.classList.add("hidden");
   errorPage.classList.remove("hidden");
-
-  errorPage.querySelector("p").innerHTML =
-    `EmailJS-Fehler: <strong>${error.status || ""} ${error.text || error.message || "Unbekannter Fehler"}</strong>`;
-
   submitBtn.disabled = false;
   submitBtn.textContent = "Date festmachen 💌";
 }
