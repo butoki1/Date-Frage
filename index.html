@@ -647,21 +647,18 @@
           `;
 
 
-        } catch (error) {
+     } catch (error) {
+  console.error("EmailJS Fehler:", error);
 
-          console.error(
-            "EmailJS Fehler:",
-            error
-          );
+  datePage.classList.add("hidden");
+  errorPage.classList.remove("hidden");
 
-          datePage.classList.add("hidden");
+  errorPage.querySelector("p").innerHTML =
+    `EmailJS-Fehler: <strong>${error.status || ""} ${error.text || error.message || "Unbekannter Fehler"}</strong>`;
 
-          errorPage.classList.remove("hidden");
-
-          submitBtn.disabled = false;
-
-          submitBtn.textContent =
-            "Date festmachen 💌";
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Date festmachen 💌";
+}
 
         }
 
