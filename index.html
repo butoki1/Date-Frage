@@ -7,7 +7,10 @@
   <title>Eine wichtige Frage 💌</title>
 
   <!-- EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
 
   <style>
     * {
@@ -52,11 +55,13 @@
       display: none !important;
     }
 
-    /* JA / NEIN */
+    /* ---------------------------
+       FRAGE
+    --------------------------- */
 
     .buttons {
       position: relative;
-      height: 140px;
+      height: 150px;
       margin-top: 20px;
     }
 
@@ -66,6 +71,7 @@
       font-size: 16px;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-family: inherit;
     }
 
     button:hover {
@@ -92,7 +98,9 @@
       padding: 14px 24px;
     }
 
-    /* DATE AUSWAHL */
+    /* ---------------------------
+       DATE-AUSWAHL
+    --------------------------- */
 
     .date-options {
       display: grid;
@@ -128,7 +136,9 @@
       margin-bottom: 8px;
     }
 
-    /* DATUM / UHRZEIT */
+    /* ---------------------------
+       DATUM / UHRZEIT
+    --------------------------- */
 
     .when-section {
       margin-top: 30px;
@@ -152,7 +162,9 @@
       margin-bottom: 18px;
     }
 
-    /* ABSENDEN */
+    /* ---------------------------
+       SENDEN
+    --------------------------- */
 
     #submitBtn {
       width: 100%;
@@ -178,7 +190,9 @@
       padding: 8px;
     }
 
-    /* ERFOLG */
+    /* ---------------------------
+       ERFOLG
+    --------------------------- */
 
     .heart {
       font-size: 55px;
@@ -198,6 +212,24 @@
       font-size: 22px;
       font-weight: bold;
     }
+
+    /* ---------------------------
+       FEHLER
+    --------------------------- */
+
+    #errorPage p {
+      font-size: 16px;
+    }
+
+    #retryBtn {
+      background: #ff4d8d;
+      color: white;
+      padding: 14px 24px;
+    }
+
+    /* ---------------------------
+       ANIMATIONEN
+    --------------------------- */
 
     @keyframes fadeIn {
       from {
@@ -221,6 +253,10 @@
       }
     }
 
+    /* ---------------------------
+       HANDY
+    --------------------------- */
+
     @media (max-width: 500px) {
       .card {
         padding: 30px 20px;
@@ -228,6 +264,10 @@
 
       h1 {
         font-size: 26px;
+      }
+
+      .date-options {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -238,7 +278,7 @@
   <div class="card">
 
     <!-- =========================
-         FRAGE
+         SEITE 1: FRAGE
     ========================== -->
 
     <div id="questionPage">
@@ -265,7 +305,7 @@
 
 
     <!-- =========================
-         DATE AUSWAHL
+         SEITE 2: DATE AUSWÄHLEN
     ========================== -->
 
     <div id="datePage" class="hidden">
@@ -281,39 +321,62 @@
         Worauf hast du Lust?
       </p>
 
+
       <div class="date-options">
 
-        <button class="date-option" data-date="Essen gehen">
+        <button
+          class="date-option"
+          data-date="Essen gehen">
+
           <span class="date-emoji">🍝</span>
           Essen gehen
+
         </button>
 
-        <button class="date-option" data-date="Kino">
+
+        <button
+          class="date-option"
+          data-date="Kino">
+
           <span class="date-emoji">🎬</span>
           Kino
+
         </button>
 
-        <button class="date-option" data-date="Drinks & Bar">
+
+        <button
+          class="date-option"
+          data-date="Drinks & Bar">
+
           <span class="date-emoji">🍸</span>
           Drinks & Bar
+
         </button>
 
-        <button class="date-option" data-date="Matcha + Spaziergang">
+
+        <button
+          class="date-option"
+          data-date="Matcha + Spaziergang">
+
           <span class="date-emoji">🍵</span>
           Matcha + Spaziergang
+
         </button>
 
-        <button class="date-option" data-date="Minigolf">
+
+        <button
+          class="date-option"
+          data-date="Minigolf">
+
           <span class="date-emoji">⛳</span>
           Minigolf
+
         </button>
 
       </div>
 
 
-      <!-- =========================
-           WANN
-      ========================== -->
+      <!-- DATUM UND UHRZEIT -->
 
       <div class="when-section">
 
@@ -325,6 +388,7 @@
           type="date"
           id="date"
         >
+
 
         <label for="time">
           🕐 Um wie viel Uhr?
@@ -338,19 +402,28 @@
       </div>
 
 
-      <button id="submitBtn" disabled>
+      <button
+        id="submitBtn"
+        disabled>
+
         Date festmachen 💌
+
       </button>
 
-      <button class="back-btn" id="backBtn">
+
+      <button
+        class="back-btn"
+        id="backBtn">
+
         ← Zurück
+
       </button>
 
     </div>
 
 
     <!-- =========================
-         ERFOLG
+         SEITE 3: ERFOLG
     ========================== -->
 
     <div id="successPage" class="hidden">
@@ -359,9 +432,16 @@
         💕
       </div>
 
-      <h1>Perfekt! 🥰</h1>
+      <h1>
+        Perfekt! 🥰
+      </h1>
 
-      <div class="summary" id="summary"></div>
+
+      <div
+        class="summary"
+        id="summary">
+      </div>
+
 
       <p class="result">
         Ich freu mich schon auf unser Date! 💖
@@ -371,26 +451,21 @@
 
 
     <!-- =========================
-         FEHLER
+         SEITE 4: FEHLER
     ========================== -->
 
     <div id="errorPage" class="hidden">
 
-      <h1>Ups 😅</h1>
+      <h1>
+        Ups 😅
+      </h1>
 
-      <p>
-        Irgendwas hat beim Verschicken nicht funktioniert.
+      <p id="errorMessage">
+        Beim Verschicken ist etwas schiefgelaufen.
         Versuch es bitte nochmal.
       </p>
 
-      <button
-        id="retryBtn"
-        style="
-          background:#ff4d8d;
-          color:white;
-          padding:14px 24px;
-        "
-      >
+      <button id="retryBtn">
         Nochmal versuchen
       </button>
 
@@ -401,25 +476,25 @@
 
   <script>
 
-    /* =========================================
-       EMAILJS
-       
-       DIESE 3 WERTE TRAGEN WIR SPÄTER EIN
-    ========================================= */
+    /* ==================================================
+       EMAILJS KONFIGURATION
+    ================================================== */
 
     const EMAILJS_PUBLIC_KEY = "Z_dmUWO5jTe_lr51O";
     const EMAILJS_SERVICE_ID = "service_75cshqi";
     const EMAILJS_TEMPLATE_ID = "template_fj6vbag";
 
 
+    /* EmailJS initialisieren */
+
     emailjs.init({
       publicKey: EMAILJS_PUBLIC_KEY
     });
 
 
-    /* =========================================
+    /* ==================================================
        ELEMENTE
-    ========================================= */
+    ================================================== */
 
     const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
@@ -435,6 +510,9 @@
 
     const errorPage =
       document.getElementById("errorPage");
+
+    const errorMessage =
+      document.getElementById("errorMessage");
 
     const dateOptions =
       document.querySelectorAll(".date-option");
@@ -458,78 +536,128 @@
       document.getElementById("summary");
 
 
+    /* ==================================================
+       VARIABLEN
+    ================================================== */
+
     let selectedDate = null;
 
 
-    /* =========================================
-       NEIN-BUTTON BEWEGT SICH
-    ========================================= */
+    /* ==================================================
+       NEIN-BUTTON AUSWEICHEN LASSEN
+    ================================================== */
 
     function moveNoButton() {
 
-      const x = Math.random() * 220 - 110;
-      const y = Math.random() * 90 - 45;
+      const card =
+        document.querySelector(".card");
+
+      const cardRect =
+        card.getBoundingClientRect();
+
+      const buttonRect =
+        noBtn.getBoundingClientRect();
+
+
+      const maxX =
+        Math.max(
+          20,
+          (cardRect.width - buttonRect.width) / 2
+        );
+
+      const maxY = 90;
+
+
+      const x =
+        Math.random() * (maxX * 2) - maxX;
+
+      const y =
+        Math.random() * (maxY * 2) - maxY;
+
 
       noBtn.style.transform =
         `translate(${x}px, ${y}px)`;
     }
 
+
     noBtn.addEventListener(
-      "mouseover",
+      "mouseenter",
       moveNoButton
     );
+
 
     noBtn.addEventListener(
       "touchstart",
-      moveNoButton
+      function(event) {
+        event.preventDefault();
+        moveNoButton();
+      },
+      { passive: false }
     );
+
 
     noBtn.addEventListener(
       "click",
-      moveNoButton
+      function(event) {
+        event.preventDefault();
+        moveNoButton();
+      }
     );
 
 
-    /* =========================================
-       JA
-    ========================================= */
+    /* ==================================================
+       JA BUTTON
+    ================================================== */
 
-    yesBtn.addEventListener("click", () => {
+    yesBtn.addEventListener(
+      "click",
+      function() {
 
-      questionPage.classList.add("hidden");
+        questionPage.classList.add("hidden");
 
-      datePage.classList.remove("hidden");
+        datePage.classList.remove("hidden");
 
-    });
-
-
-    /* =========================================
-       DATE AUSWÄHLEN
-    ========================================= */
-
-    dateOptions.forEach(option => {
-
-      option.addEventListener("click", () => {
-
-        dateOptions.forEach(o => {
-          o.classList.remove("selected");
-        });
-
-        option.classList.add("selected");
-
-        selectedDate =
-          option.dataset.date;
-
-        checkForm();
-
-      });
-
-    });
+      }
+    );
 
 
-    /* =========================================
-       DATUM + ZEIT
-    ========================================= */
+    /* ==================================================
+       DATE-AUSWAHL
+    ================================================== */
+
+    dateOptions.forEach(
+      function(option) {
+
+        option.addEventListener(
+          "click",
+          function() {
+
+            dateOptions.forEach(
+              function(o) {
+                o.classList.remove("selected");
+              }
+            );
+
+
+            option.classList.add("selected");
+
+
+            selectedDate =
+              option.dataset.date;
+
+
+            checkForm();
+
+          }
+        );
+
+      }
+    );
+
+
+    /* ==================================================
+       DATUM / UHRZEIT ÄNDERN
+    ================================================== */
 
     dateInput.addEventListener(
       "change",
@@ -542,6 +670,10 @@
     );
 
 
+    /* ==================================================
+       FORMULAR PRÜFEN
+    ================================================== */
+
     function checkForm() {
 
       const complete =
@@ -549,31 +681,44 @@
         dateInput.value &&
         timeInput.value;
 
-      submitBtn.disabled = !complete;
 
+      submitBtn.disabled =
+        !complete;
     }
 
 
-    /* =========================================
+    /* ==================================================
        ZURÜCK
-    ========================================= */
+    ================================================== */
 
-    backBtn.addEventListener("click", () => {
+    backBtn.addEventListener(
+      "click",
+      function() {
 
-      datePage.classList.add("hidden");
+        datePage.classList.add("hidden");
 
-      questionPage.classList.remove("hidden");
+        questionPage.classList.remove("hidden");
 
-    });
+      }
+    );
 
 
-    /* =========================================
-       ABSENDEN
-    ========================================= */
+    /* ==================================================
+       DATE ABSENDEN
+    ================================================== */
 
     submitBtn.addEventListener(
       "click",
-      async () => {
+      async function() {
+
+        if (
+          !selectedDate ||
+          !dateInput.value ||
+          !timeInput.value
+        ) {
+          return;
+        }
+
 
         submitBtn.disabled = true;
 
@@ -587,6 +732,7 @@
           new Date(
             dateInput.value + "T00:00:00"
           );
+
 
         const formattedDate =
           dateObject.toLocaleDateString(
@@ -604,9 +750,7 @@
           `${formattedDate} um ${timeInput.value} Uhr`;
 
 
-        /* =====================================
-           DATEN FÜR EMAILJS
-        ===================================== */
+        /* Daten für EmailJS */
 
         const templateParams = {
 
@@ -626,10 +770,20 @@
 
         try {
 
-          await emailjs.send(
-            EMAILJS_SERVICE_ID,
-            EMAILJS_TEMPLATE_ID,
-            templateParams
+          /* E-Mail senden */
+
+          const response =
+            await emailjs.send(
+              EMAILJS_SERVICE_ID,
+              EMAILJS_TEMPLATE_ID,
+              templateParams
+            );
+
+
+          console.log(
+            "EmailJS erfolgreich:",
+            response.status,
+            response.text
           );
 
 
@@ -641,26 +795,47 @@
 
 
           summary.innerHTML = `
-            <strong>Unser Date:</strong><br><br>
-            💕 ${selectedDate}<br>
+            <strong>Unser Date:</strong>
+            <br><br>
+            💕 ${selectedDate}
+            <br>
             📅 ${whenText}
           `;
 
 
-    } catch (error) {
-  alert(
-    "EMAILJS FEHLER\n\n" +
-    "Status: " + (error.status || "unbekannt") + "\n" +
-    "Text: " + (error.text || error.message || "unbekannt")
-  );
+        } catch (error) {
 
-  console.error("EmailJS Fehler:", error);
+          /* Fehler in der Browser-Konsole */
 
-  datePage.classList.add("hidden");
-  errorPage.classList.remove("hidden");
-  submitBtn.disabled = false;
-  submitBtn.textContent = "Date festmachen 💌";
-}
+          console.error(
+            "EmailJS Fehler:",
+            error
+          );
+
+
+          /*
+             Fehler für den Fall anzeigen,
+             dass EmailJS den Versand ablehnt.
+          */
+
+          errorMessage.innerHTML =
+            `Beim Verschicken ist etwas schiefgelaufen.
+            <br><br>
+            <small>
+              Fehler ${error.status || ""}:
+              ${error.text || error.message || "Unbekannter Fehler"}
+            </small>`;
+
+
+          datePage.classList.add("hidden");
+
+          errorPage.classList.remove("hidden");
+
+
+          submitBtn.disabled = false;
+
+          submitBtn.textContent =
+            "Date festmachen 💌";
 
         }
 
@@ -668,13 +843,13 @@
     );
 
 
-    /* =========================================
+    /* ==================================================
        NOCHMAL VERSUCHEN
-    ========================================= */
+    ================================================== */
 
     retryBtn.addEventListener(
       "click",
-      () => {
+      function() {
 
         errorPage.classList.add("hidden");
 
@@ -688,5 +863,4 @@
   </script>
 
 </body>
-</html>
 </html>
