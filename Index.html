@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Eine wichtige Frage 💌</title>
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #ff9ecb, #ffd6e7);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #333;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      max-width: 500px;
+      width: 100%;
+      animation: fadeIn 0.5s ease;
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 30px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* JA / NEIN */
+
+    .buttons {
+      position: relative;
+      height: 140px;
+      margin-top: 20px;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    #yes {
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-120%);
+      background: #ff4d8d;
+      color: white;
+      padding: 14px 24px;
+    }
+
+    #no {
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(20%);
+      background: #eee;
+      color: #333;
+      padding: 14px 24px;
+    }
+
+    /* DATE AUSWAHL */
+
+    .date-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .date-option {
+      background: #fff0f6;
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 18px 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .date-option:hover {
+      background: #ffe0ed;
+      transform: translateY(-2px);
+    }
+
+    .date-option.selected {
+      border-color: #ff4d8d;
+      background: #ffdce9;
+      box-shadow: 0 5px 15px rgba(255,77,141,0.2);
+    }
+
+    .date-emoji {
+      display: block;
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    /* DATUM / UHRZEIT */
+
+    .when-section {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .when-section label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    input[type="date"],
+    input[type="time"] {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+      font-family: inherit;
+      margin-bottom: 18px;
+    }
+
+    /* ABSENDEN */
+
+    #submitBtn {
+      width: 100%;
+      background: #ff4d8d;
+      color: white;
+      padding: 15px;
+      margin-top: 10px;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    #submitBtn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .back-btn {
+      background: transparent;
+      color: #888;
+      font-size: 14px;
+      margin-top: 15px;
+      padding: 8px;
+    }
+
+    /* ERFOLG */
+
+    .heart {
+      font-size: 55px;
+      animation: pulse 1s infinite;
+    }
+
+    .summary {
+      background: #fff0f6;
+      padding: 18px;
+      border-radius: 16px;
+      margin: 25px 0;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .result {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <!-- =========================
+         FRAGE
+    ========================== -->
+
+    <div id="questionPage">
+
+      <h1>Kurze Frage 💖</h1>
+
+      <p>
+        Hast du Lust auf ein Date mit mir? 🥰
+      </p>
+
+      <div class="buttons">
+
+        <button id="yes">
+          Ja 💘
+        </button>
+
+        <button id="no">
+          Nein
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         DATE AUSWAHL
+    ========================== -->
+
+    <div id="datePage" class="hidden">
+
+      <h1>Yaaay! 🥰</h1>
+
+      <p>
+        Dann müssen wir nur noch entscheiden,
+        was wir machen. 💕
+      </p>
+
+      <p style="font-size:16px; margin-bottom:10px;">
+        Worauf hast du Lust?
+      </p>
+
+      <div class="date-options">
+
+        <button class="date-option" data-date="Essen gehen">
+          <span class="date-emoji">🍝</span>
+          Essen gehen
+        </button>
+
+        <button class="date-option" data-date="Kino">
+          <span class="date-emoji">🎬</span>
+          Kino
+        </button>
+
+        <button class="date-option" data-date="Drinks & Bar">
+          <span class="date-emoji">🍸</span>
+          Drinks & Bar
+        </button>
+
+        <button class="date-option" data-date="Matcha + Spaziergang">
+          <span class="date-emoji">🍵</span>
+          Matcha + Spaziergang
+        </button>
+
+        <button class="date-option" data-date="Minigolf">
+          <span class="date-emoji">⛳</span>
+          Minigolf
+        </button>
+
+      </div>
+
+
+      <!-- =========================
+           WANN
+      ========================== -->
+
+      <div class="when-section">
+
+        <label for="date">
+          📅 Wann kannst du?
+        </label>
+
+        <input
+          type="date"
+          id="date"
+        >
+
+        <label for="time">
+          🕐 Um wie viel Uhr?
+        </label>
+
+        <input
+          type="time"
+          id="time"
+        >
+
+      </div>
+
+
+      <button id="submitBtn" disabled>
+        Date festmachen 💌
+      </button>
+
+      <button class="back-btn" id="backBtn">
+        ← Zurück
+      </button>
+
+    </div>
+
+
+    <!-- =========================
+         ERFOLG
+    ========================== -->
+
+    <div id="successPage" class="hidden">
+
+      <div class="heart">
+        💕
+      </div>
+
+      <h1>Perfekt! 🥰</h1>
+
+      <div class="summary" id="summary"></div>
+
+      <p class="result">
+        Ich freu mich schon auf unser Date! 💖
+      </p>
+
+    </div>
+
+
+    <!-- =========================
+         FEHLER
+    ========================== -->
+
+    <div id="errorPage" class="hidden">
+
+      <h1>Ups 😅</h1>
+
+      <p>
+        Irgendwas hat beim Verschicken nicht funktioniert.
+        Versuch es bitte nochmal.
+      </p>
+
+      <button
+        id="retryBtn"
+        style="
+          background:#ff4d8d;
+          color:white;
+          padding:14px 24px;
+        "
+      >
+        Nochmal versuchen
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =========================================
+       EMAILJS
+       
+       DIESE 3 WERTE TRAGEN WIR SPÄTER EIN
+    ========================================= */
+
+    const EMAILJS_PUBLIC_KEY = "DEIN_PUBLIC_KEY";
+    const EMAILJS_SERVICE_ID = "DEIN_SERVICE_ID";
+    const EMAILJS_TEMPLATE_ID = "DEIN_TEMPLATE_ID";
+
+
+    emailjs.init({
+      publicKey: EMAILJS_PUBLIC_KEY
+    });
+
+
+    /* =========================================
+       ELEMENTE
+    ========================================= */
+
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+
+    const questionPage =
+      document.getElementById("questionPage");
+
+    const datePage =
+      document.getElementById("datePage");
+
+    const successPage =
+      document.getElementById("successPage");
+
+    const errorPage =
+      document.getElementById("errorPage");
+
+    const dateOptions =
+      document.querySelectorAll(".date-option");
+
+    const dateInput =
+      document.getElementById("date");
+
+    const timeInput =
+      document.getElementById("time");
+
+    const submitBtn =
+      document.getElementById("submitBtn");
+
+    const backBtn =
+      document.getElementById("backBtn");
+
+    const retryBtn =
+      document.getElementById("retryBtn");
+
+    const summary =
+      document.getElementById("summary");
+
+
+    let selectedDate = null;
+
+
+    /* =========================================
+       NEIN-BUTTON BEWEGT SICH
+    ========================================= */
+
+    function moveNoButton() {
+
+      const x = Math.random() * 220 - 110;
+      const y = Math.random() * 90 - 45;
+
+      noBtn.style.transform =
+        `translate(${x}px, ${y}px)`;
+    }
+
+    noBtn.addEventListener(
+      "mouseover",
+      moveNoButton
+    );
+
+    noBtn.addEventListener(
+      "touchstart",
+      moveNoButton
+    );
+
+    noBtn.addEventListener(
+      "click",
+      moveNoButton
+    );
+
+
+    /* =========================================
+       JA
+    ========================================= */
+
+    yesBtn.addEventListener("click", () => {
+
+      questionPage.classList.add("hidden");
+
+      datePage.classList.remove("hidden");
+
+    });
+
+
+    /* =========================================
+       DATE AUSWÄHLEN
+    ========================================= */
+
+    dateOptions.forEach(option => {
+
+      option.addEventListener("click", () => {
+
+        dateOptions.forEach(o => {
+          o.classList.remove("selected");
+        });
+
+        option.classList.add("selected");
+
+        selectedDate =
+          option.dataset.date;
+
+        checkForm();
+
+      });
+
+    });
+
+
+    /* =========================================
+       DATUM + ZEIT
+    ========================================= */
+
+    dateInput.addEventListener(
+      "change",
+      checkForm
+    );
+
+    timeInput.addEventListener(
+      "change",
+      checkForm
+    );
+
+
+    function checkForm() {
+
+      const complete =
+        selectedDate &&
+        dateInput.value &&
+        timeInput.value;
+
+      submitBtn.disabled = !complete;
+
+    }
+
+
+    /* =========================================
+       ZURÜCK
+    ========================================= */
+
+    backBtn.addEventListener("click", () => {
+
+      datePage.classList.add("hidden");
+
+      questionPage.classList.remove("hidden");
+
+    });
+
+
+    /* =========================================
+       ABSENDEN
+    ========================================= */
+
+    submitBtn.addEventListener(
+      "click",
+      async () => {
+
+        submitBtn.disabled = true;
+
+        submitBtn.textContent =
+          "Wird verschickt... 💌";
+
+
+        /* Datum schön formatieren */
+
+        const dateObject =
+          new Date(
+            dateInput.value + "T00:00:00"
+          );
+
+        const formattedDate =
+          dateObject.toLocaleDateString(
+            "de-DE",
+            {
+              weekday: "long",
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric"
+            }
+          );
+
+
+        const whenText =
+          `${formattedDate} um ${timeInput.value} Uhr`;
+
+
+        /* =====================================
+           DATEN FÜR EMAILJS
+        ===================================== */
+
+        const templateParams = {
+
+          date_choice:
+            selectedDate,
+
+          when_choice:
+            whenText,
+
+          message:
+            `Sie hat JA zu einem Date gesagt! 💕\n\n` +
+            `Date: ${selectedDate}\n` +
+            `Wann: ${whenText}`
+
+        };
+
+
+        try {
+
+          await emailjs.send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_ID,
+            templateParams
+          );
+
+
+          /* Erfolg anzeigen */
+
+          datePage.classList.add("hidden");
+
+          successPage.classList.remove("hidden");
+
+
+          summary.innerHTML = `
+            <strong>Unser Date:</strong><br><br>
+            💕 ${selectedDate}<br>
+            📅 ${whenText}
+          `;
+
+
+        } catch (error) {
+
+          console.error(
+            "EmailJS Fehler:",
+            error
+          );
+
+          datePage.classList.add("hidden");
+
+          errorPage.classList.remove("hidden");
+
+          submitBtn.disabled = false;
+
+          submitBtn.textContent =
+            "Date festmachen 💌";
+
+        }
+
+      }
+    );
+
+
+    /* =========================================
+       NOCHMAL VERSUCHEN
+    ========================================= */
+
+    retryBtn.addEventListener(
+      "click",
+      () => {
+
+        errorPage.classList.add("hidden");
+
+        datePage.classList.remove("hidden");
+
+        checkForm();
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
+</html>
