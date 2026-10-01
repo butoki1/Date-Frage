@@ -378,10 +378,8 @@
 
       <h1>Ups 😅</h1>
 
-      <p>
-        Irgendwas hat beim Verschicken nicht funktioniert.
-        Versuch es bitte nochmal.
-      </p>
+     <p>Irgendwas hat beim Verschicken nicht funktioniert.</p>
+<p id="errorText" style="font-size:14px; color:#c00; word-break:break-word;"></p>
 
       <button
         id="retryBtn"
@@ -649,10 +647,9 @@
 
         } catch (error) {
 
-          console.error(
-            "EmailJS Fehler:",
-            error
-          );
+          cdocument.getElementById("errorText").textContent =
+  "Status: " + (error.status || "-") + " | " +
+  (error.text || error.message || "Unbekannter Fehler");
 
           datePage.classList.add("hidden");
 
