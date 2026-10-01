@@ -6,12 +6,6 @@
 
   <title>Eine wichtige Frage 💌</title>
 
-  <!-- EmailJS -->
-  <script
-    type="text/javascript"
-    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-  </script>
-
   <style>
     * {
       box-sizing: border-box;
@@ -34,15 +28,13 @@
       background: white;
       padding: 40px 30px;
       border-radius: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,.15);
       max-width: 500px;
       width: 100%;
-      animation: fadeIn 0.5s ease;
     }
 
     h1 {
       margin-top: 0;
-      margin-bottom: 10px;
       font-size: 30px;
     }
 
@@ -55,52 +47,38 @@
       display: none !important;
     }
 
-    /* ---------------------------
-       FRAGE
-    --------------------------- */
+    /* FRAGE */
 
     .buttons {
       position: relative;
       height: 150px;
-      margin-top: 20px;
+      margin-top: 25px;
     }
 
-    button {
+    #yes,
+    #no {
+      position: absolute;
+      top: 20px;
       border: none;
       border-radius: 999px;
+      padding: 14px 24px;
       font-size: 16px;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      font-family: inherit;
-    }
-
-    button:hover {
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
     }
 
     #yes {
-      position: absolute;
-      left: 50%;
-      top: 20px;
-      transform: translateX(-120%);
+      left: 35%;
       background: #ff4d8d;
       color: white;
-      padding: 14px 24px;
     }
 
     #no {
-      position: absolute;
-      left: 50%;
-      top: 20px;
-      transform: translateX(20%);
+      left: 55%;
       background: #eee;
       color: #333;
-      padding: 14px 24px;
     }
 
-    /* ---------------------------
-       DATE-AUSWAHL
-    --------------------------- */
+    /* DATE-AUSWAHL */
 
     .date-options {
       display: grid;
@@ -116,18 +94,11 @@
       padding: 18px 10px;
       cursor: pointer;
       font-size: 16px;
-      transition: all 0.2s ease;
-    }
-
-    .date-option:hover {
-      background: #ffe0ed;
-      transform: translateY(-2px);
     }
 
     .date-option.selected {
       border-color: #ff4d8d;
       background: #ffdce9;
-      box-shadow: 0 5px 15px rgba(255,77,141,0.2);
     }
 
     .date-emoji {
@@ -136,9 +107,7 @@
       margin-bottom: 8px;
     }
 
-    /* ---------------------------
-       DATUM / UHRZEIT
-    --------------------------- */
+    /* DATUM */
 
     .when-section {
       margin-top: 30px;
@@ -151,52 +120,38 @@
       margin-bottom: 8px;
     }
 
-    input[type="date"],
-    input[type="time"] {
+    input {
       width: 100%;
       padding: 13px;
       border: 1px solid #ddd;
       border-radius: 12px;
       font-size: 16px;
-      font-family: inherit;
       margin-bottom: 18px;
     }
 
-    /* ---------------------------
-       SENDEN
-    --------------------------- */
-
     #submitBtn {
       width: 100%;
+      border: none;
+      border-radius: 999px;
       background: #ff4d8d;
       color: white;
       padding: 15px;
-      margin-top: 10px;
       font-size: 17px;
       font-weight: bold;
+      cursor: pointer;
     }
 
     #submitBtn:disabled {
-      opacity: 0.45;
+      opacity: .45;
       cursor: not-allowed;
-      box-shadow: none;
     }
 
     .back-btn {
+      border: none;
       background: transparent;
       color: #888;
-      font-size: 14px;
       margin-top: 15px;
-      padding: 8px;
-    }
-
-    /* ---------------------------
-       ERFOLG
-    --------------------------- */
-
-    .heart {
-      font-size: 55px;
-      animation: pulse 1s infinite;
+      cursor: pointer;
     }
 
     .summary {
@@ -204,58 +159,17 @@
       padding: 18px;
       border-radius: 16px;
       margin: 25px 0;
-      font-size: 16px;
       line-height: 1.8;
     }
 
-    .result {
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    /* ---------------------------
-       FEHLER
-    --------------------------- */
-
-    #errorPage p {
-      font-size: 16px;
-    }
-
     #retryBtn {
+      border: none;
+      border-radius: 999px;
       background: #ff4d8d;
       color: white;
       padding: 14px 24px;
+      cursor: pointer;
     }
-
-    /* ---------------------------
-       ANIMATIONEN
-    --------------------------- */
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.15);
-      }
-    }
-
-    /* ---------------------------
-       HANDY
-    --------------------------- */
 
     @media (max-width: 500px) {
       .card {
@@ -275,198 +189,26 @@
 
 <body>
 
-  <div class="card">
+<div class="card">
 
-    <!-- =========================
-         SEITE 1: FRAGE
-    ========================== -->
+  <!-- FRAGE -->
 
-    <div id="questionPage">
+  <div id="questionPage">
 
-      <h1>Kurze Frage 💖</h1>
+    <h1>Kurze Frage 💖</h1>
 
-      <p>
-        Hast du Lust auf ein Date mit mir? 🥰
-      </p>
+    <p>
+      Hast du Lust auf ein Date mit mir? 🥰
+    </p>
 
-      <div class="buttons">
+    <div class="buttons">
 
-        <button id="yes">
-          Ja 💘
-        </button>
-
-        <button id="no">
-          Nein
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <!-- =========================
-         SEITE 2: DATE AUSWÄHLEN
-    ========================== -->
-
-    <div id="datePage" class="hidden">
-
-      <h1>Yaaay! 🥰</h1>
-
-      <p>
-        Dann müssen wir nur noch entscheiden,
-        was wir machen. 💕
-      </p>
-
-      <p style="font-size:16px; margin-bottom:10px;">
-        Worauf hast du Lust?
-      </p>
-
-
-      <div class="date-options">
-
-        <button
-          class="date-option"
-          data-date="Essen gehen">
-
-          <span class="date-emoji">🍝</span>
-          Essen gehen
-
-        </button>
-
-
-        <button
-          class="date-option"
-          data-date="Kino">
-
-          <span class="date-emoji">🎬</span>
-          Kino
-
-        </button>
-
-
-        <button
-          class="date-option"
-          data-date="Drinks & Bar">
-
-          <span class="date-emoji">🍸</span>
-          Drinks & Bar
-
-        </button>
-
-
-        <button
-          class="date-option"
-          data-date="Matcha + Spaziergang">
-
-          <span class="date-emoji">🍵</span>
-          Matcha + Spaziergang
-
-        </button>
-
-
-        <button
-          class="date-option"
-          data-date="Minigolf">
-
-          <span class="date-emoji">⛳</span>
-          Minigolf
-
-        </button>
-
-      </div>
-
-
-      <!-- DATUM UND UHRZEIT -->
-
-      <div class="when-section">
-
-        <label for="date">
-          📅 Wann kannst du?
-        </label>
-
-        <input
-          type="date"
-          id="date"
-        >
-
-
-        <label for="time">
-          🕐 Um wie viel Uhr?
-        </label>
-
-        <input
-          type="time"
-          id="time"
-        >
-
-      </div>
-
-
-      <button
-        id="submitBtn"
-        disabled>
-
-        Date festmachen 💌
-
+      <button id="yes" type="button">
+        Ja 💘
       </button>
 
-
-      <button
-        class="back-btn"
-        id="backBtn">
-
-        ← Zurück
-
-      </button>
-
-    </div>
-
-
-    <!-- =========================
-         SEITE 3: ERFOLG
-    ========================== -->
-
-    <div id="successPage" class="hidden">
-
-      <div class="heart">
-        💕
-      </div>
-
-      <h1>
-        Perfekt! 🥰
-      </h1>
-
-
-      <div
-        class="summary"
-        id="summary">
-      </div>
-
-
-      <p class="result">
-        Ich freu mich schon auf unser Date! 💖
-      </p>
-
-    </div>
-
-
-    <!-- =========================
-         SEITE 4: FEHLER
-    ========================== -->
-
-    <div id="errorPage" class="hidden">
-
-      <h1>
-        Ups 😅
-      </h1>
-
-      <p id="errorMessage">
-        Beim Verschicken ist etwas schiefgelaufen.
-        Versuch es bitte nochmal.
-      </p>
-
-      <button id="retryBtn">
-        Nochmal versuchen
+      <button id="no" type="button">
+        Nein
       </button>
 
     </div>
@@ -474,393 +216,66 @@
   </div>
 
 
-  <script>
+  <!-- DATE AUSWÄHLEN -->
 
-    /* ==================================================
-       EMAILJS KONFIGURATION
-    ================================================== */
+  <div id="datePage" class="hidden">
 
-    const EMAILJS_PUBLIC_KEY = "Z_dmUWO5jTe_lr51O";
-    const EMAILJS_SERVICE_ID = "service_75cshqi";
-    const EMAILJS_TEMPLATE_ID = "template_fj6vbag";
+    <h1>Yaaay! 🥰</h1>
 
+    <p>
+      Dann müssen wir nur noch entscheiden,
+      was wir machen. 💕
+    </p>
 
-    /* EmailJS initialisieren */
+    <p style="font-size:16px;">
+      Worauf hast du Lust?
+    </p>
 
-    emailjs.init({
-      publicKey: EMAILJS_PUBLIC_KEY
-    });
+    <div class="date-options">
 
+      <button class="date-option" type="button" data-date="Essen gehen">
+        <span class="date-emoji">🍝</span>
+        Essen gehen
+      </button>
 
-    /* ==================================================
-       ELEMENTE
-    ================================================== */
+      <button class="date-option" type="button" data-date="Kino">
+        <span class="date-emoji">🎬</span>
+        Kino
+      </button>
 
-    const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
+      <button class="date-option" type="button" data-date="Drinks & Bar">
+        <span class="date-emoji">🍸</span>
+        Drinks & Bar
+      </button>
 
-    const questionPage =
-      document.getElementById("questionPage");
+      <button class="date-option" type="button" data-date="Matcha + Spaziergang">
+        <span class="date-emoji">🍵</span>
+        Matcha + Spaziergang
+      </button>
 
-    const datePage =
-      document.getElementById("datePage");
+      <button class="date-option" type="button" data-date="Minigolf">
+        <span class="date-emoji">⛳</span>
+        Minigolf
+      </button>
 
-    const successPage =
-      document.getElementById("successPage");
+    </div>
 
-    const errorPage =
-      document.getElementById("errorPage");
 
-    const errorMessage =
-      document.getElementById("errorMessage");
+    <div class="when-section">
 
-    const dateOptions =
-      document.querySelectorAll(".date-option");
+      <label for="date">
+        📅 Wann kannst du?
+      </label>
 
-    const dateInput =
-      document.getElementById("date");
+      <input type="date" id="date">
 
-    const timeInput =
-      document.getElementById("time");
+      <label for="time">
+        🕐 Um wie viel Uhr?
+      </label>
 
-    const submitBtn =
-      document.getElementById("submitBtn");
+      <input type="time" id="time">
 
-    const backBtn =
-      document.getElementById("backBtn");
+    </div>
 
-    const retryBtn =
-      document.getElementById("retryBtn");
 
-    const summary =
-      document.getElementById("summary");
-
-
-    /* ==================================================
-       VARIABLEN
-    ================================================== */
-
-    let selectedDate = null;
-
-
-    /* ==================================================
-       NEIN-BUTTON AUSWEICHEN LASSEN
-    ================================================== */
-
-    function moveNoButton() {
-
-      const card =
-        document.querySelector(".card");
-
-      const cardRect =
-        card.getBoundingClientRect();
-
-      const buttonRect =
-        noBtn.getBoundingClientRect();
-
-
-      const maxX =
-        Math.max(
-          20,
-          (cardRect.width - buttonRect.width) / 2
-        );
-
-      const maxY = 90;
-
-
-      const x =
-        Math.random() * (maxX * 2) - maxX;
-
-      const y =
-        Math.random() * (maxY * 2) - maxY;
-
-
-      noBtn.style.transform =
-        `translate(${x}px, ${y}px)`;
-    }
-
-
-    noBtn.addEventListener(
-      "mouseenter",
-      moveNoButton
-    );
-
-
-    noBtn.addEventListener(
-      "touchstart",
-      function(event) {
-        event.preventDefault();
-        moveNoButton();
-      },
-      { passive: false }
-    );
-
-
-    noBtn.addEventListener(
-      "click",
-      function(event) {
-        event.preventDefault();
-        moveNoButton();
-      }
-    );
-
-
-    /* ==================================================
-       JA BUTTON
-    ================================================== */
-
-    yesBtn.addEventListener(
-      "click",
-      function() {
-
-        questionPage.classList.add("hidden");
-
-        datePage.classList.remove("hidden");
-
-      }
-    );
-
-
-    /* ==================================================
-       DATE-AUSWAHL
-    ================================================== */
-
-    dateOptions.forEach(
-      function(option) {
-
-        option.addEventListener(
-          "click",
-          function() {
-
-            dateOptions.forEach(
-              function(o) {
-                o.classList.remove("selected");
-              }
-            );
-
-
-            option.classList.add("selected");
-
-
-            selectedDate =
-              option.dataset.date;
-
-
-            checkForm();
-
-          }
-        );
-
-      }
-    );
-
-
-    /* ==================================================
-       DATUM / UHRZEIT ÄNDERN
-    ================================================== */
-
-    dateInput.addEventListener(
-      "change",
-      checkForm
-    );
-
-    timeInput.addEventListener(
-      "change",
-      checkForm
-    );
-
-
-    /* ==================================================
-       FORMULAR PRÜFEN
-    ================================================== */
-
-    function checkForm() {
-
-      const complete =
-        selectedDate &&
-        dateInput.value &&
-        timeInput.value;
-
-
-      submitBtn.disabled =
-        !complete;
-    }
-
-
-    /* ==================================================
-       ZURÜCK
-    ================================================== */
-
-    backBtn.addEventListener(
-      "click",
-      function() {
-
-        datePage.classList.add("hidden");
-
-        questionPage.classList.remove("hidden");
-
-      }
-    );
-
-
-    /* ==================================================
-       DATE ABSENDEN
-    ================================================== */
-
-    submitBtn.addEventListener(
-      "click",
-      async function() {
-
-        if (
-          !selectedDate ||
-          !dateInput.value ||
-          !timeInput.value
-        ) {
-          return;
-        }
-
-
-        submitBtn.disabled = true;
-
-        submitBtn.textContent =
-          "Wird verschickt... 💌";
-
-
-        /* Datum schön formatieren */
-
-        const dateObject =
-          new Date(
-            dateInput.value + "T00:00:00"
-          );
-
-
-        const formattedDate =
-          dateObject.toLocaleDateString(
-            "de-DE",
-            {
-              weekday: "long",
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric"
-            }
-          );
-
-
-        const whenText =
-          `${formattedDate} um ${timeInput.value} Uhr`;
-
-
-        /* Daten für EmailJS */
-
-        const templateParams = {
-
-          date_choice:
-            selectedDate,
-
-          when_choice:
-            whenText,
-
-          message:
-            `Sie hat JA zu einem Date gesagt! 💕\n\n` +
-            `Date: ${selectedDate}\n` +
-            `Wann: ${whenText}`
-
-        };
-
-
-        try {
-
-          /* E-Mail senden */
-
-          const response =
-            await emailjs.send(
-              EMAILJS_SERVICE_ID,
-              EMAILJS_TEMPLATE_ID,
-              templateParams
-            );
-
-
-          console.log(
-            "EmailJS erfolgreich:",
-            response.status,
-            response.text
-          );
-
-
-          /* Erfolg anzeigen */
-
-          datePage.classList.add("hidden");
-
-          successPage.classList.remove("hidden");
-
-
-          summary.innerHTML = `
-            <strong>Unser Date:</strong>
-            <br><br>
-            💕 ${selectedDate}
-            <br>
-            📅 ${whenText}
-          `;
-
-
-        } catch (error) {
-
-          /* Fehler in der Browser-Konsole */
-
-          console.error(
-            "EmailJS Fehler:",
-            error
-          );
-
-
-          /*
-             Fehler für den Fall anzeigen,
-             dass EmailJS den Versand ablehnt.
-          */
-
-          errorMessage.innerHTML =
-            `Beim Verschicken ist etwas schiefgelaufen.
-            <br><br>
-            <small>
-              Fehler ${error.status || ""}:
-              ${error.text || error.message || "Unbekannter Fehler"}
-            </small>`;
-
-
-          datePage.classList.add("hidden");
-
-          errorPage.classList.remove("hidden");
-
-
-          submitBtn.disabled = false;
-
-          submitBtn.textContent =
-            "Date festmachen 💌";
-
-        }
-
-      }
-    );
-
-
-    /* ==================================================
-       NOCHMAL VERSUCHEN
-    ================================================== */
-
-    retryBtn.addEventListener(
-      "click",
-      function() {
-
-        errorPage.classList.add("hidden");
-
-        datePage.classList.remove("hidden");
-
-        checkForm();
-
-      }
-    );
-
-  </script>
-
-</body>
-</html>
+    <button id="submitBtn
